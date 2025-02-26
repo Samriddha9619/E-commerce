@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 class product(models.Model):
     product_id=models.AutoField
     product_name=models.CharField(max_length=50)
