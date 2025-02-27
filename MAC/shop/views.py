@@ -1,7 +1,9 @@
 from math import ceil
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import product
+from .models import product,contact
+import  logging
+logger =logging.getLogger(__name__)
 def index(request):
     products = product.objects.all()
     allprods=[]
@@ -21,13 +23,22 @@ def index(request):
 def about(request):
     return render(request,"shop/about.html")
 def contact(request):
-    return HttpResponse("We are at Contact")
+    if request.method=="POST":
+        print(request)
+        name=request.POST.get('name','')
+        email=request.POST.get('email','')
+        phone=request.POST.get('phone','')
+        desc= request.POST.get('desc','')
+        contact_instance=contact(name=name,email=email,phone=phone,desc=desc)
+        contact_instance.save()
+
+    return render(request,"shop/contact.html")
 def tracker(request):
     return HttpResponse("We are at Tracker")
 def search(request):
     return HttpResponse("We are at Search")
 def productView(request):
-    return HttpResponse("We are at ProductView")
+    product=product.objects.filter(id=myid)
+    return render(request,"shop/prodView.html",{'product':product[0]})
 def checkout(request):
     return HttpResponse("We are at checkout")
-
