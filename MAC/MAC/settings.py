@@ -59,7 +59,7 @@ ROOT_URLCONF = 'MAC.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['mac/templates'],
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,5 +128,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL="/static/"
+STATICFILES_DIRS = [
+    BASE_DIR / 'shop/static',
+]
 MEDIA_ROOT= os.path.join(BASE_DIR,"media")
 MEDIA_URL="/media/"

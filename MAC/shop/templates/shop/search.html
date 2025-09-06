@@ -1,4 +1,41 @@
-{% extends 'shop/basic.html' %}
+{% extends 'base.html' %}
 
-{% block title%} Search Results - My Awesome Cart{% endblock %}
-{% block body %} This is our checkout page {% endblock %}
+{% block title %}Search - BuzzAR{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2>Search Products</h2>
+        <form method="GET" class="mb-4">
+            <div class="input-group">
+                <input type="text" class="form-control" name="q" value="{{ query }}" placeholder="Search products...">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+        
+        {% if query %}
+            <h4>Search results for "{{ query }}"</h4>
+            {% if products %}
+                <div class="row">
+                    {% for product in products %}
+                    <div class="col-md-3 mb-3">
+                        <div class="card">
+                            {% if product.image %}
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.product_name }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.product_name }}</h5>
+                                <p class="card-text">₹{{ product.price }}</p>
+                                <a href="{% url 'shop:ProductView' product.id %}" class="btn btn-primary btn-sm">View</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No products found matching your search.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
