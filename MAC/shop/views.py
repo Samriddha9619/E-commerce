@@ -79,7 +79,8 @@ def search(request):
     return render(request, "shop/search.html")
 
 def productView(request, myid):
-    single_product = get_object_or_404(product, id=myid)
+    # model uses `product_id` as the primary key field, so look up by that
+    single_product = get_object_or_404(product, product_id=myid)
     return render(request, "shop/prodView.html", {'product': single_product})
 
 def checkout(request):
